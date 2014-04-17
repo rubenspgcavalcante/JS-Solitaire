@@ -11,15 +11,46 @@ SL.Model.PJO.CardStack = function(){
 
 /**
  * The card stack model
- * @extends {Backbone.Model}
+ * @extends {maria.SetModel}
  * @extends {SL.Model.PJO.CardStack}
  */
-SL.Model.Card = Backbone.Model.extend({
-    defaults: new SL.Model.PJO.Card(),
-    initialize: function(attributes, options){
-        this.suit = attributes.suit || null;
-        this.value = attributes.value || null;
-    }
+SL.Model.CardStack = {};
+maria.SetModel.subclass(SL.Model, "CardStack", {
+    properties: SL.Util.Object.merge(new SL.Model.PJO.CardStack(), {
+        /**
+         * Compares if the card stack is equals
+         * to the given cards
+         * @param {SL.Model.PJO.Card[] | SL.Model.CardStack} cards
+         * @return {Boolean}
+         */
+        equals: function(cards){
+            var cardArr = cards;
+            if(cards.hasOwnProperty('cards')){
+                cardArr = cards.cards;
+            }
+            return SL.Utils.Array.strictEquals(this.cards, cardArr);
+        },
+
+        /**
+         * Sets a array of cards
+         * @param {SL.Model.Card[]} cards
+         */
+        setCards: function(cards){
+            if(!this.equals(cards)){
+                this.cards = cards;
+                this.dispatchEvent({type: 'change'});
+            }
+        },
+
+        /**
+         * Append a set of cards
+         * @param {SL.Model.PJO.Card} cards
+         */
+        append: function(cards){
+            this.cards.concat(cards);
+            this.dispatchEvent({type: 'change'});
+        }
+    })
 });
 
 /**

@@ -35,6 +35,12 @@ SL.Controller = {};
 SL.Views = {};
 
 /**
+ * Utils lib namespace
+ * @namespace
+ */
+SL.Utils = {};
+
+/**
  * All the card suits
  * @enum {Number}
  */
