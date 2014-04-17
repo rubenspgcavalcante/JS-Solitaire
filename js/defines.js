@@ -41,6 +41,12 @@ SL.Views = {};
 SL.Utils = {};
 
 /**
+ * Core namespace
+ * @namespace
+ */
+SL.Core = {};
+
+/**
  * All the card suits
  * @enum {Number}
  */

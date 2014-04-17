@@ -22,5 +22,23 @@ SL.Utils.Object = {
         }
 
         return final;
+    },
+
+    /**
+     * Get the key of a object based on the value
+     * @param {Object} obj
+     * @param {*} value
+     * @return {String}
+     */
+    getKey: function(obj, value){
+        for(var i in obj){
+            if(obj.hasOwnProperty(i)){
+                if(obj[i] == value){
+                    return i;
+                }
+            }
+        }
+
+        return null;
     }
 };
