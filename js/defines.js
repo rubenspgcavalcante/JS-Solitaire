@@ -47,14 +47,21 @@ SL.Utils = {};
 SL.Core = {};
 
 /**
+ * The errors namespace
+ * @namespace
+ */
+SL.Error = {};
+
+/**
  * All the card suits
  * @enum {Number}
  */
 SL.suits = {
-    SPADES: 1,
-    HEARTS: 2,
-    DIAMONDS: 3,
-    CLUBS: 4
+    BACK: 0,
+    SPADE: 1,
+    HEART: 2,
+    DIAMOND: 3,
+    CLUB: 4
 };
 
 /**

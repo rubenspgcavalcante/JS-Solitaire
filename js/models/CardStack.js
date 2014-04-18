@@ -16,7 +16,7 @@ SL.Model.PJO.CardStack = function(){
  */
 SL.Model.CardStack = {};
 maria.SetModel.subclass(SL.Model, "CardStack", {
-    properties: SL.Util.Object.merge(new SL.Model.PJO.CardStack(), {
+    properties: SL.Utils.Object.merge(new SL.Model.PJO.CardStack(), {
         /**
          * Compares if the card stack is equals
          * to the given cards

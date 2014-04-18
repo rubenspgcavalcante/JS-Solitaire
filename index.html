@@ -4,32 +4,32 @@
     <link rel="stylesheet" type="text/css" href="libs/jquery/jquery-ui/css/smoothness/jquery-ui-1.10.4.custom.css"/>
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-theme.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="css/cards.css"/>
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#">Solitaire</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="#">Game</a></li>
+                <li><a href="#about">Config</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>
 
-<div class="container">
+<div class="container cardtable">
 
-    <!-- View goes here -->
+    <div class="starter-template">
+        <!-- View goes here -->
+        <div class="center-block"></div>
+    </div>
+
 
 </div><!-- /.container -->
 
@@ -39,17 +39,25 @@
 <script type="application/javascript" src="libs/maria/maria.js"></script>
 <script type="application/javascript" src="libs/bootstrap/js/bootstrap.js"></script>
 
+<!-- Application start-->
+<script type="application/javascript" src="js/defines.js"></script>
+<script type="application/javascript" src="js/app.js"></script>
+
+<!-- Application Exceptions -->
+<script type="application/javascript" src="js/error/InvalidCard.js"></script>
+
 <!-- Applications utils -->
 <script type="application/javascript" src="js/utils/ObjectUtils.js"></script>
 <script type="application/javascript" src="js/utils/ArrayUtils.js"></script>
+<script type="application/javascript" src="js/utils/TemplateUtils.js"></script>
 
 <!-- MVC -->
 <script type="application/javascript" src="js/models/Card.js"></script>
 <script type="application/javascript" src="js/models/CardStack.js"></script>
+<script type="application/javascript" src="js/views/CardView.js"></script>
 
-<!-- Application scripts-->
-<script type="application/javascript" src="js/defines.js"></script>
+<!-- Application things -->
 <script type="application/javascript" src="js/core/CardFactory.js"></script>
-<script type="application/javascript" src="js/app.js"></script>
+
 </body>
 </html>
