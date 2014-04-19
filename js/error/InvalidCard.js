@@ -1,6 +1,6 @@
 /**
  * A card with a invalid value or suit
- * @param {SL.Model.PJO.Card} card
+ * @param {SL.MVC.PJO.Card} card
  * @constructor
  * @extends {Error}
  */

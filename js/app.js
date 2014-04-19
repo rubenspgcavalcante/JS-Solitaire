@@ -6,16 +6,27 @@ SL.App = {
     /** @type {SL.Core.CardFactory} */
     cardFactory: null,
 
+    initGame: function(){
+        var cardStack = new SL.MVC.CardStack();
+
+        SL.Utils.Card.each(function(value, suit){
+            var card = new SL.MVC.Card();
+            card.setValue(value);
+            card.setSuit(suit);
+            card.setTurned(true);
+            card.setDraggable(true);
+
+            cardStack.add(card);
+        });
+
+        var cardStackView = new SL.MVC.CardStackView(cardStack);
+        $(".center-block").append(cardStackView.build());
+    },
+
     start: function(){
         this.cardFactory = new SL.Core.CardFactory();
         this.cardFactory.load();
-
-        var card = new SL.Model.Card();
-        card.setValue(SL.cv.ACE);
-        card.setSuit(SL.suits.DIAMOND);
-
-        var cardView = new SL.Views.CardView(card);
-        $(".center-block").append(cardView.build());
+        this.initGame();
     }
 };
 

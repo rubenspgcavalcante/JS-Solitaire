@@ -2,20 +2,48 @@
  * The card view
  * @extends {maria.ElementView}
  */
-SL.Views.CardView = {};
-SL.Views.CardTemplate = SL.Utils.Template.load("card");
+SL.MVC.CardView = {};
+SL.MVC.CardTemplate = SL.Utils.Template.load("card");
 
-maria.ElementView.subclass(SL.Views, "CardView", {
+maria.ElementView.subclass(SL.MVC, "CardView", {
+    uiActions: {
+        'dragStop .card': 'onDrag'
+    },
     properties: {
-        buildData: function() {
-            var $templ = $(this.find(""));
-
-            var cardSvg = SL.App.cardFactory.getCardSVG(this.getModel());
-            $templ.html(cardSvg);
-            $templ.draggable();
+        /**
+         * Turns the card draggable
+         * @param {jQuery} $template
+         * @private
+         */
+        _initDrag: function ($template) {
+            var that = this;
+            $template.draggable({
+                stop: function (ev) {
+                    this.dispatchEvent(new Event('dragStop'));
+                }
+            });
         },
 
-        update: function(){
+        buildData: function () {
+            var $templ = $(this.find(""));
+            var card = this.getModel();
+
+            var cardImg = SL.App.cardFactory.getCardImg(card);
+            $templ.html(cardImg);
+            $templ.css({zIndex: card.zindex});
+            $templ.attr("id", card.value + "-" + card.suit);
+
+            this._initDrag($templ);
+
+            if (card.draggable) {
+                $templ.draggable('enable');
+            }
+            else {
+                $templ.draggable('disable');
+            }
+        },
+
+        update: function () {
             this.buildData();
         }
     }

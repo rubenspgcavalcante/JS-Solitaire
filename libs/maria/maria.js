@@ -1745,7 +1745,7 @@ maria.Node = hijos.Node;
 
 A constructor function to create new model objects.
 
-    var model = new maria.Model();
+    var model = new maria.MVC();
 
 The most interesting feature of model objects is that they are event
 targets and so can be observed by any event listeners. Other model
@@ -1787,16 +1787,16 @@ An event listener can be removed from a model object.
 
     maria.off(model, 'change', view, 'update');
 
-A particularly useful pattern is using maria.Model as the "superclass"
+A particularly useful pattern is using maria.MVC as the "superclass"
 of your application's model. The following example shows how this
 can be done at a low level for a to-do application.
-See maria.Model.subclass for a more compact way to accomplish the same.
+See maria.MVC.subclass for a more compact way to accomplish the same.
 
     checkit.TodoModel = function() {
-        maria.Model.apply(this, arguments);
+        maria.MVC.apply(this, arguments);
     };
-    checkit.TodoModel.superConstructor = maria.Model;
-    checkit.TodoModel.prototype = maria.create(maria.Model.prototype);
+    checkit.TodoModel.superConstructor = maria.MVC;
+    checkit.TodoModel.prototype = maria.create(maria.MVC.prototype);
     checkit.TodoModel.prototype.constructor = checkit.TodoModel;
     checkit.TodoModel.prototype._content = '';
     checkit.TodoModel.prototype._isDone = false;
@@ -1836,7 +1836,7 @@ using "addParentEventTarget" and "removeParentEventTarget".)
 @extends evento.EventTarget
 
 */
-maria.Model = function() {
+maria.MVC = function() {
     evento.EventTarget.call(this);
 };
 
@@ -1845,10 +1845,10 @@ maria.Model = function() {
 @property maria.Model.superConstructor
 
 */
-maria.Model.superConstructor = evento.EventTarget;
+maria.MVC.superConstructor = evento.EventTarget;
 
-maria.Model.prototype = maria.create(evento.EventTarget.prototype);
-maria.Model.prototype.constructor = maria.Model;
+maria.MVC.prototype = maria.create(evento.EventTarget.prototype);
+maria.MVC.prototype.constructor = maria.MVC;
 
 /**
 
@@ -1857,7 +1857,7 @@ listeners (especially containing `maria.SetModel` objects) that
 this particular model is no longer useful/reliable.
 
 */
-maria.Model.prototype.destroy = function() {
+maria.MVC.prototype.destroy = function() {
     this.dispatchEvent({type: 'destroy'});
 };
 /**
@@ -1869,9 +1869,9 @@ once in a set model object.
 The constructor takes multiple arguments and populates the set model
 with those elements.
 
-    var alpha = new maria.Model();
+    var alpha = new maria.MVC();
     alpha.name = 'Alpha';
-    var beta = new maria.Model();
+    var beta = new maria.MVC();
     beta.name = 'Beta';
 
     var setModel = new maria.SetModel(alpha, beta);
@@ -2037,7 +2037,7 @@ example. This can complement well the flyweight pattern used in a view.
 */
 maria.SetModel = function() {
     hormigas.ObjectSet.apply(this, arguments);
-    maria.Model.call(this);
+    maria.MVC.call(this);
 };
 
 /**
@@ -2045,9 +2045,9 @@ maria.SetModel = function() {
 @property maria.SetModel.superConstructor
 
 */
-maria.SetModel.superConstructor = maria.Model;
+maria.SetModel.superConstructor = maria.MVC;
 
-maria.SetModel.prototype = maria.create(maria.Model.prototype);
+maria.SetModel.prototype = maria.create(maria.MVC.prototype);
 maria.SetModel.prototype.constructor = maria.SetModel;
 
 hormigas.ObjectSet.mixin(maria.SetModel.prototype);
@@ -2194,7 +2194,7 @@ A constructor function to create new view objects.
 
 This constructor function takes two optional arguments.
 
-    var model = new maria.Model();
+    var model = new maria.MVC();
     var controller = new maria.Controller();
     var view = new maria.View(model, controller);
 
@@ -2508,7 +2508,7 @@ A constructor function to create new element view objects.
 
 This constructor function takes three optional arguments.
 
-    var model = new maria.Model();
+    var model = new maria.MVC();
     var controller = new maria.Controller();
     var myFrameDoc = window.frames['myFrame'].document;
     var elementView =
@@ -3107,7 +3107,7 @@ view creates the controller or when view.setController is called with
 the controller. You can set the model object explicitely but you
 many never have a need to do this.
 
-    var model = new maria.Model();
+    var model = new maria.MVC();
     controller.setModel(model);
 
 You can get the controller's model object when needed and you will do
@@ -3232,13 +3232,13 @@ maria.Controller.prototype.setView = function(view) {
 };
 /**
 
-A function that makes subclassing maria.Model more compact.
+A function that makes subclassing maria.MVC more compact.
 
 The following example creates a checkit.TodoModel constructor function
 equivalent to the more verbose example shown in the documentation
-for maria.Model.
+for maria.MVC.
 
-    maria.Model.subclass(checkit, 'TodoModel', {
+    maria.MVC.subclass(checkit, 'TodoModel', {
         properties: {
             _content: '',
             _isDone: false,
@@ -3269,7 +3269,7 @@ for maria.Model.
     });
 
 */
-maria.Model.subclass = function() {
+maria.MVC.subclass = function() {
     maria.subclass.apply(this, arguments);
 };
 /**
@@ -3317,7 +3317,7 @@ for maria.SetModel.
 
 */
 maria.SetModel.subclass = function() {
-    maria.Model.subclass.apply(this, arguments);
+    maria.MVC.subclass.apply(this, arguments);
 };
 /**
 

@@ -5,34 +5,16 @@
 SL = {};
 
 /**
- * Models namespace
+ * Models, Views and Controllers namespace
  * @namespace
  */
-SL.Model = {};
+SL.MVC = {};
 
 /**
  * Contains all the plain javascript objects models
  * @namespace
  */
-SL.Model.PJO = {};
-
-/**
- * The collections namespace
- * @namespace
- */
-SL.Collection = {};
-
-/**
- * Controllers namespace
- * @namespace
- */
-SL.Controller = {};
-
-/**
- * Views namespace
- * @namespace
- */
-SL.Views = {};
+SL.MVC.PJO = {};
 
 /**
  * Utils lib namespace
@@ -57,7 +39,6 @@ SL.Error = {};
  * @enum {Number}
  */
 SL.suits = {
-    BACK: 0,
     SPADE: 1,
     HEART: 2,
     DIAMOND: 3,

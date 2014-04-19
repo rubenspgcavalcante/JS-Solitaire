@@ -6,14 +6,20 @@
 SL.Core.CardFactory = function(){
 
     /**
-     * The svg instance
-     * @type {jQuery}
+     * A set of card images
+     * @type {Image[]}
      */
-    var $cards = null;
+    var cardsImgs = [];
+
+    /**
+     * The cover of the card
+     * @type {Image}
+     */
+    var cardCover = new Image();
 
     /**
      * Validates a card
-     * @param {SL.Model.PJO.Card} card
+     * @param {SL.MVC.PJO.Card} card
      * @return {Boolean}
      * @private
      */
@@ -25,58 +31,57 @@ SL.Core.CardFactory = function(){
     };
 
     /**
-     * Get the card id of the SVG
-     * @param {SL.Model.PJO.Card} card
-     * @return {String}
+     * Searches a card into the card images array
+     * @param {SL.MVC.PJO.Card} card
+     * @return {Image}
      * @private
      */
-    var _getCardId = function(card){
-        var cardId = "";
-        var suitKey = SL.Utils.Object.getKey(SL.suits, card.suit);
-
-        if (card.suit == SL.suits.BACK) {
-            cardId = "#back"
+    var _findCard = function(card){
+        for (var i = 0; i < cardsImgs.length; i++) {
+            var currCard = cardsImgs[i]._card;
+            if (card.value == currCard.value && card.suit == currCard.suit) {
+                return cardsImgs[i];
+            }
         }
-        else {
-            var suitName = suitKey.toLowerCase();
-            var valueName = card.value > 9 ? valueKey.toLowerCase() : card.value;
-            cardId = "#" + valueName + "_" + suitName;
-        }
-
-        return cardId;
     };
 
     /**
      * Loads all the cards
      */
     this.load = function(){
-        $.ajax({
-            url: "css/svg-cards/svg-cards.svg",
-            type: "GET",
-            async: false,
-            success: function(cards){
-                $cards = $(cards).find("svg");
-            }
+
+        cardCover.src = "css/svg-cards/exported/back.png";
+
+        SL.Utils.Card.each(function(value, suit){
+            var card = new SL.MVC.PJO.Card();
+            card.suit = suit;
+            card.value = value;
+
+            var cardImg = new Image();
+            cardImg.src = "css/svg-cards/exported/" + SL.Utils.Card.fileName(card);
+            cardImg._card = card;
+            cardsImgs.push(cardImg);
         });
+
+
     };
 
     /**
      * Get the card svg
-     * @param {SL.Model.PJO.Card} card
+     * @param {SL.MVC.PJO.Card} card
      * @throws {SL.Error.InvalidCard}
-     * @return {SVGElement}
+     * @return {jQuery}
      */
-    this.getCardSVG = function(card){
-        if(!_validCard(card)){
+    this.getCardImg = function(card){
+        if (!_validCard(card)) {
             throw new SL.Error.InvalidCard(card);
         }
 
-        var $cardsClone = $cards.clone(true);
-        var cardSvg = $cardsClone.find("> g:first").html($cardsClone.find(_getCardId(card))).end()[0];
-        cardSvg.setAttribute("height", 128);
-        cardSvg.setAttribute("width", 86);
-        cardSvg.setAttribute("viewBox", "0 0 192 256");
-
-        return cardSvg;
+        if (card.turned) {
+            return $(cardCover).clone();
+        }
+        else {
+            return $(_findCard(card)).clone();
+        }
     };
 };
