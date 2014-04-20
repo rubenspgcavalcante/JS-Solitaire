@@ -31,6 +31,10 @@ maria.ElementView.subclass(SL.MVC, "CardView", {
             var cardImg = SL.App.cardFactory.getCardImg(card);
             $templ.html(cardImg);
             $templ.css({zIndex: card.zindex});
+            if(this.hasOwnProperty("cssModifiers")){
+                $templ.css(this.cssModifiers);
+            }
+
             $templ.attr("id", card.value + "-" + card.suit);
 
             this._initDrag($templ);

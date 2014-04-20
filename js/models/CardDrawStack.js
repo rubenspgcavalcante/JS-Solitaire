@@ -1,22 +1,12 @@
 /** @module Models */
 
 /**
- * The card stack plain object
- * @constructor
- */
-SL.MVC.PJO.CardStack = function(){
-    /** @type {SL.MVC.Card[]} */
-    this.cards = [];
-
-};
-
-/**
  * The card stack model
  * @extends {maria.SetModel}
  * @extends {SL.MVC.PJO.CardStack}
  */
-SL.MVC.CardStack = {};
-maria.SetModel.subclass(SL.MVC, "CardStack", {
+SL.MVC.CardDrawStack = {};
+maria.SetModel.subclass(SL.MVC, "CardDrawStack", {
     properties: SL.Utils.Object.merge(new SL.MVC.PJO.CardStack(), {
 
         _sort: function(){
@@ -45,6 +35,12 @@ maria.SetModel.subclass(SL.MVC, "CardStack", {
          */
         pushCard: function(card){
             card.zindex = this.cards.length;
+            this.forEach(function(cardInStack){
+                cardInStack.setDraggable(false);
+            });
+
+            card.setDraggable(true);
+            card.setTurned(false);
             this.add(card);
             this.sync();
         },

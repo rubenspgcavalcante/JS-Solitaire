@@ -14,12 +14,12 @@ SL.App = {
             card.setValue(value);
             card.setSuit(suit);
             card.setTurned(true);
-            card.setDraggable(true);
 
-            cardStack.add(card);
+            cardStack.pushCard(card);
         });
 
         var cardStackView = new SL.MVC.CardStackView(cardStack);
+        console.log(cardStack);
         $(".center-block").append(cardStackView.build());
     },
 
